@@ -29,10 +29,10 @@ class PassengerDetailsFragmentViewModel : ViewModel() {
 
     private fun getPassengerInfo(passengerId: String) = viewModelScope.launch {
         val response = ApiRepository(RetrofitBuilder.apiService).getPassengerInfo(passengerId)
-        passengerInfo.postValue(handleAllPassengersResponse(response))
+        passengerInfo.postValue(handlePassengerInfoResponse(response))
     }
 
-    private fun handleAllPassengersResponse(response: Response<PassengerModel>): Resource<PassengerModel> {
+    private fun handlePassengerInfoResponse(response: Response<PassengerModel>): Resource<PassengerModel> {
         if (response.isSuccessful) {
             response.body()?.let { resultResponse ->
                 return Resource.Success(resultResponse)
